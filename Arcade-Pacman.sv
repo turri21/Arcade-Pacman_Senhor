@@ -431,7 +431,7 @@ arcade_video #(288,8) arcade_video
 );
 
 wire no_rotate = status[2] | direct_video | mod_ponp;
-wire rotate_ccw = 0;
+wire rotate_ccw = mod_dshop | mod_van;
 wire flip = 0;
 wire video_rotated;
 screen_rotate screen_rotate (.*);
@@ -484,8 +484,8 @@ pacman pacman
 		~mod_pmm & m_left_2,
 		(~mod_pmm & m_up_2) | (mod_numcr&m_fire)
 	})),
-	
-	.dipsw1(sw[2]),
+
+	.dipsw1((mod_dshop | mod_van) ? (sw[2] ^ 8'h02) : sw[2]),
 	.dipsw2((mod_numcr| mod_ponp | mod_van | mod_dshop) ? sw[3] : 8'hFF),
 
 	.mod_plus(mod_plus),
